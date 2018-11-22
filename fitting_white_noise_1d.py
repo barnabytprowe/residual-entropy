@@ -2,11 +2,10 @@
 """
 fitting_white_noise_1d.py
 =========================
-Some examples of fitting white noise in 1D
+Fitting white noise in 1D
 """
-import numpy as np
-import matplotlib.pyplot as plt
 import pickle
+import numpy as np
 
 # First we tackle the fundamental case - Uniformly spaced x, Fourier decompose pure white noise,
 # subtract modes, analyse residuals
@@ -114,19 +113,3 @@ if store_all:
 print("Saving results to "+output_filename)
 with open(output_filename, "wb") as fout:
     pickle.dump(output, fout)
-
-# if False:
-#     # Show x, y results
-#     plt.plot(x, y)
-#     plt.plot(x, yfit)
-#     plt.show()
-
-#     # Show x, y results
-#     plt.bar(x, r, width=0.01)
-#     plt.show()
-
-# if False:
-#     # Plot the pure noise and residual correlation functions
-#     plt.bar(np.arange(n//2) - 0.2, rcf[:n//2], width=0.4)
-#     plt.bar(np.arange(n//2) + 0.2, ncf[:n//2], width=0.4)
-#     plt.show()
