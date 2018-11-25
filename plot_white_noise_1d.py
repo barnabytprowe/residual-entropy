@@ -77,5 +77,5 @@ for m in (1, 21, 41):
     plt.legend(loc=1)
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(".", "plots", "fig4.pdf"))
 plt.close(fig)
