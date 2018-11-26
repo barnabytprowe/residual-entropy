@@ -55,6 +55,8 @@ for im in range(mmax):
     print("Run "+str(m)+"/"+str(mmax))
 
     # Build design matrix
+    # Following numpy SVD least-squares implementation linalg.lstsq as nicely described here:
+    # https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/
     A = np.hstack([cosx[:, :m], sinx[:, :m]])
 
     # Get or generate white noise y values
