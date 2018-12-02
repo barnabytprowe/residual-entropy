@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 """
-fitting_white_noise_1d.py
-=========================
-Fitting white noise in 1D
+fitting_white_noise_sinusoids_1d.py
+===================================
+Fitting white noise with sinusoids in 1D
 """
 import pickle
 import numpy as np
 
-# First we tackle the fundamental case - Uniformly spaced x, Fourier decompose pure white noise,
-# subtract modes, analyse residuals
-
 # Setup parameters
 # ----------------
-output_filename = "wn1d.1e3.all.pickle"
+output_filename = "wns1d.1e3.all.pickle"
 store_all = True # Set True to store all y values, all best-fitting y model values, all correl fns
 # Number of data points
 nx = 100
@@ -25,7 +22,7 @@ Nruns = 1000
 # ------
 # Define unit interval
 x = np.linspace(-.5, .5, num=nx, endpoint=False)
-# Pre-construct the sin, cos arrays - for building the design matrix - as these won't change
+# Pre-construct the sinusoid function arrays - for building design matrix - as these won't change
 sinx = np.asarray([np.sin(2. * np.pi * float(j) * x) for j in range(0, mmax)]).T
 cosx = np.asarray([np.cos(2. * np.pi * float(j) * x) for j in range(0, mmax)]).T
 
@@ -74,7 +71,7 @@ for im in range(mmax):
     if store_all:
         yfit.append(yf)
 
-    # Get residuals and calcualtion correlation function using FFTs
+    # Get residuals and calculate semivariogram/correlation function using FFTs
     r = y - yf
     rc = (
         ((np.fft.ifft(np.abs(np.fft.fft(r, axis=-1))**2, axis=-1)).real).T/np.sum(r**2, axis=-1)).T
