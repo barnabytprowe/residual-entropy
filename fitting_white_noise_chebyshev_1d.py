@@ -1,30 +1,31 @@
 #!/usr/bin/env python
 """
-fitting_white_noise_sinusoids_1d.py
+fitting_white_noise_chebyshev_1d.py
 ===================================
-Fitting white noise with sinusoids in 1D
+Fitting white noise with Chebyshev polynomials in 1D
 """
 import pickle
 import numpy as np
+from numpy.polynomial.chebyshev import chebval
 
 # Setup parameters
 # ----------------
-output_filename = "wns1d.1e3.all.pickle"
+output_filename = "wnc1d.1e3.all.pickle"
 store_all = True # Set True to store all y values, all best-fitting y model values, all correl fns
 # Number of data points
 nx = 100
 # Max sin, cos order m to fit - sin(2 pi m x), cos(2 pi m x)
-mmax = 1 + nx//2
+mmax = 67 #1 + nx//2
 # Number or random runs per order m
 Nruns = 1000
 
 # Script
 # ------
 # Define unit interval
-x = np.linspace(-.5, .5, num=nx, endpoint=False)
-# Pre-construct the sinusoid function arrays - for building design matrix - as these won't change
-sinx = np.asarray([np.sin(2. * np.pi * float(j) * x) for j in range(0, mmax)]).T
-cosx = np.asarray([np.cos(2. * np.pi * float(j) * x) for j in range(0, mmax)]).T
+x = np.linspace(-1., 1., num=nx, endpoint=True)
+identn = np.eye(mmax)
+# Pre-construct the Chebyshev function array - for building design matrix - as this won't change
+chebyx = np.asarray([chebval(x, identrow) for identrow in identn]).T
 
 # Storage variables
 results = [] # Output coeffs
@@ -54,7 +55,7 @@ for im in range(mmax):
     # Following numpy SVD least-squares implementation linalg.lstsq as nicely described here:
     # https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/
     # Build design matrix
-    A = np.hstack([cosx[:, :m], sinx[:, :m]])
+    A = chebyx[:, :m]
 
     # Retrieve stored or generate white noise y values
     if store_all:
