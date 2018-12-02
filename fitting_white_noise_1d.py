@@ -51,15 +51,15 @@ if store_all:
 # Begin main loop - note vectorized so does all Nruns simultaneously
 for im in range(mmax):
 
-    m = 1 + im
-    print("Run "+str(m)+"/"+str(mmax))
+    m = 1 + im # m = order of max frequency sinusoid in the truncated Fourier series fit to the data
+    print("Run for m = "+str(m)+"/"+str(mmax))
 
-    # Build design matrix
     # Following numpy SVD least-squares implementation linalg.lstsq as nicely described here:
     # https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/
+    # Build design matrix
     A = np.hstack([cosx[:, :m], sinx[:, :m]])
 
-    # Get or generate white noise y values
+    # Retrieve stored or generate white noise y values
     if store_all:
         y = yall[im]
     else:
