@@ -16,7 +16,7 @@ if not os.path.isdir(os.path.join(".", "plots")):
     os.mkdir(os.path.join(".", "plots"))
 
 # Load detailed ("all") results from pickled file object
-with open("wn1d.1e3.all.pickle", "r") as fin:
+with open("wns1d.1e3.all.pickle", "r") as fin:
     rall = pickle.load(fin)
 # Pull out results
 yall = rall["yall"]
@@ -24,6 +24,10 @@ yfit = rall["yfit"]
 rcf = rall["rcf"]
 ncf = rall["ncf"]
 
+
+# Single examples of fitting in 1D
+# ================================
+#
 # Define unit interval
 x = np.linspace(-.5, .5, num=yall.shape[-1], endpoint=False)
 
@@ -62,6 +66,10 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
     print("SSE of fit (m="+str(m)+") residuals = "+str(np.sum((yall[m, 0, :] - yfit[m, 0, :])**2)))
     plt.close(fig)
 
+
+# Residual correlation functions for single 1D examples
+# =====================================================
+#
 # Loop through orders to show the rcf examples
 mmax = 1 + ncf.shape[-1]//2
 fig = plt.figure()
