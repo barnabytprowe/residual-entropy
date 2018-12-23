@@ -72,18 +72,22 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
 #
 # Loop through orders to show the rcf examples
 mmax = 1 + ncf.shape[-1]//2
-fig = plt.figure()
-plt.grid()
-for m in (1, 21, 41):
+fig, axes = plt.subplots(3, 1, sharex=True)
 
-    plt.plot(
-        rcf[m, 0, :mmax], label=r"$m="+str(m)+"$",
-        ls={1: "-", 21: "--", 41: ":"}[m])
-    plt.ylim(-1, 1.1)
-    plt.xlabel(r"$|\Delta x|$")
-    plt.ylabel("Autocorrelation function")
-    plt.legend(loc=1)
+for i, m in enumerate((1, 21, 41)):
 
+    axes[i].plot(rcf[m, 0, :mmax], label=r"$m="+str(m)+"$")
+    axes[i].set_yticks(np.arange(-0.5, 1.5, 0.5))
+    axes[i].set_ylim(-1, 1.1)
+    axes[i].grid()
+    if i == 1: axes[i].set_ylabel("Autocorrelation function")
+    axes[i].legend(loc=1)
+
+# Add x label to final subplot
+axes[-1].set_xlabel(r"$|\Delta i|$")
+# Remove horizontal space between axes
 plt.tight_layout()
-plt.savefig(os.path.join(".", "plots", "fig4.pdf"))
+fig.subplots_adjust(hspace=0)
+# Save and close
+fig.savefig(os.path.join(".", "plots", "fig4.pdf"))
 plt.close(fig)
