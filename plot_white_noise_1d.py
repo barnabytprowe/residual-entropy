@@ -73,14 +73,14 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
 # Loop through orders to show the rcf examples
 mmax = 1 + ncf.shape[-1]//2
 fig, axes = plt.subplots(3, 1, sharex=True)
-
+# Loop through 3 examples
 for i, m in enumerate((1, 21, 41)):
 
     axes[i].plot(rcf[m, 0, :mmax], label=r"$m="+str(m)+"$")
     axes[i].set_yticks(np.arange(-0.5, 1.5, 0.5))
     axes[i].set_ylim(-1, 1.1)
     axes[i].grid()
-    if i == 1: axes[i].set_ylabel("Autocorrelation function")
+    if i == 1: axes[i].set_ylabel("Residual autocorrelation")
     axes[i].legend(loc=1)
 
 # Add x label to final subplot
