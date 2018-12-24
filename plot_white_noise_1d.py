@@ -91,3 +91,50 @@ fig.subplots_adjust(hspace=0)
 # Save and close
 fig.savefig(os.path.join(".", "plots", "fig4.pdf"))
 plt.close(fig)
+
+
+# Plot mean of all residual autocorrelations for the full sinusoidal runs
+# =======================================================================
+#
+# Load results from pickled file object
+with open("wns1d.1e5.pickle", "r") as fin:
+    rse5 = pickle.load(fin)
+
+# Build the plot output
+fig, ax = plt.subplots()
+rcf_plt = rse5["m_rcf"][:(mmax - 1), :mmax]
+
+# Seismic has good contrast
+im = ax.pcolor(rcf_plt, vmin=-1, vmax=+1, cmap="seismic")
+fig.colorbar(im)
+
+# Shift ticks to be at 0.5, 1.5, etc
+ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
+ax.yaxis.set(
+    ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
+ax.set_xlabel(r"$|\Delta i|$", size="large")
+ax.set_ylabel(r"$m$", size="large")
+ax.set_title("Averaged residual autocorrelation")
+fig.savefig(os.path.join(".", "plots", "fig5.pdf"))
+plt.close(fig)
+
+
+# Plot mean of all power spectra for the full sinusoidal runs
+# ===========================================================
+#
+pss_plt = np.abs(np.fft.fft(rse5["m_rcf"]))[:(mmax - 1), :mmax]
+pss_plt = (pss_plt.T / pss_plt.max(axis=1)).T
+# Build the plot output
+fig, ax = plt.subplots()
+# Seismic has good contrast
+im = ax.pcolor(pss_plt, vmin=-1, vmax=+1, cmap="seismic")
+fig.colorbar(im)
+# Shift ticks to be at 0.5, 1.5, etc
+ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
+ax.yaxis.set(
+    ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
+ax.set_xlabel(r"$|\Delta i|$", size="large")
+ax.set_ylabel(r"$m$", size="large")
+ax.set_title("Averaged residual power spectral signature")
+fig.savefig(os.path.join(".", "plots", "fig6.pdf"))
+plt.close(fig)
