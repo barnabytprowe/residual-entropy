@@ -122,8 +122,8 @@ plt.close(fig)
 # Plot mean of all power spectra for the full sinusoidal runs
 # ===========================================================
 #
-pss_plt = np.abs(np.fft.fft(rse5["m_rcf"]))[:(mmax - 1), :mmax]
-pss_plt = (pss_plt.T / pss_plt.max(axis=1)).T
+ps_plt = np.abs(np.fft.fft(rse5["m_rcf"]))[:(mmax - 1), :mmax]
+pss_plt = (ps_plt.T / ps_plt.max(axis=1)).T
 # Build the plot output
 fig, ax = plt.subplots()
 # Seismic has good contrast
