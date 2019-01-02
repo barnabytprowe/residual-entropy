@@ -80,7 +80,12 @@ for i, m in enumerate((1, 21, 41)):
     axes[i].set_yticks(np.arange(-0.5, 1.5, 0.5))
     axes[i].set_ylim(-1, 1.1)
     axes[i].grid()
-    if i == 1: axes[i].set_ylabel("Residual autocorrelation")
+    if i == 0: # Add a top axis with delta x units (rather than delta i)
+        ax2 = axes[i].twiny()
+        ax2.set_xlabel(r'$|\Delta x|$')
+        ax2.set_xlim(tuple(.01 * np.asarray(axes[i].get_xlim())))
+    elif i == 1:
+        axes[i].set_ylabel("Residual autocorrelation")
     axes[i].legend(loc=1)
 
 # Add x label to final subplot
