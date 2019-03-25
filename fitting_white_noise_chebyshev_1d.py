@@ -64,6 +64,7 @@ for im in range(mmax):
         y = np.random.randn(Nruns, nx)
 
     # Fit using SVD
+    # Note rcond=None karg call requires numpy >= 1.14.0
     coeffs = np.asarray([np.linalg.lstsq(A, yarr, rcond=None)[0] for yarr in y])
     yf = (A.dot(coeffs.T)).T # Fit values of y
 
