@@ -40,7 +40,7 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
     fig = plt.figure(figsize=(6, 4))
     plt.grid()
     plt.plot(x, yall[m, 0, :], label=r"White noise $\sim N(0, 1)$")
-    plt.plot(x, yfit[m, 0, :], label=r"Best-fitting curve for $m="+str(m)+"$")
+    plt.plot(x, yfit[m, 0, :], label=r"Best-fitting curve for $M="+str(m)+"$")
     plt.ylim(-3, 3)
     plt.xlabel(r"$x$")
     plt.ylabel(r"$y$")
@@ -55,7 +55,7 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
     #plt.plot(x, yall[m, 0, :], label=r"White noise $\sim N(0, 1)$")
     plt.plot(
         x, yall[m, 0, :] - yfit[m, 0, :], "r--",
-        label=r"Residual from best-fitting curve for $m="+str(m)+"$")
+        label=r"Residual from best-fitting curve for $M="+str(m)+"$")
     plt.ylim(-3, 3)
     plt.xlabel(r"$x$")
     plt.ylabel(r"$y$")
@@ -63,7 +63,7 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
     plt.tight_layout()
     plt.savefig(os.path.join(".", "plots", fig_str+"b.pdf"))
     plt.clf()
-    print("SSE of fit (m="+str(m)+") residuals = "+str(np.sum((yall[m, 0, :] - yfit[m, 0, :])**2)))
+    print("SSE of fit (M="+str(m)+") residuals = "+str(np.sum((yall[m, 0, :] - yfit[m, 0, :])**2)))
     plt.close(fig)
 
 
@@ -76,7 +76,7 @@ fig, axes = plt.subplots(3, 1, sharex=True)
 # Loop through 3 examples
 for i, m in enumerate((1, 21, 41)):
 
-    axes[i].plot(rcf[m, 0, :mmax], label=r"$m="+str(m)+"$")
+    axes[i].plot(rcf[m, 0, :mmax], label=r"$M="+str(m)+"$")
     axes[i].set_yticks(np.arange(-0.5, 1.5, 0.5))
     axes[i].set_ylim(-1, 1.1)
     axes[i].grid()
@@ -118,7 +118,7 @@ ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
 ax.set_xlabel(r"$|\Delta i|$", size="large")
-ax.set_ylabel(r"$m$", size="large")
+ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual autocorrelation")
 fig.savefig(os.path.join(".", "plots", "fig5.pdf"))
 plt.close(fig)
@@ -138,7 +138,7 @@ ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
 ax.set_xlabel(r"$|\Delta i|$", size="large")
-ax.set_ylabel(r"$m$", size="large")
+ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig6.pdf"))
 plt.close(fig)
@@ -165,7 +165,7 @@ ax.yaxis.set(
     ticks=list(np.arange(0.5, rcf_plt.shape[0], 10)),
     ticklabels=list(np.arange(0, rcf_plt.shape[0], 10)))
 ax.set_xlabel(r"$|\Delta i|$", size="large")
-ax.set_ylabel(r"$m$", size="large")
+ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual autocorrelation")
 fig.savefig(os.path.join(".", "plots", "fig7.pdf"))
 plt.close(fig)
@@ -186,7 +186,7 @@ ax.yaxis.set(
     ticks=list(np.arange(0.5, pss_plt.shape[0], 10)),
     ticklabels=list(np.arange(0, pss_plt.shape[0], 10)))
 ax.set_xlabel(r"$|\Delta i|$", size="large")
-ax.set_ylabel(r"$m$", size="large")
+ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig8.pdf"))
 plt.close(fig)
