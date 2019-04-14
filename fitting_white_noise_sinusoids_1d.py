@@ -14,9 +14,10 @@ store_all = True  # Set True to store all y values, all best-fitting y model val
                   # ...don't set with Nruns = 100000 unless you have plenty of memory!
 # Number of data points
 nx = 100
-# Max sin, cos order m to fit - sin(2 pi m x), cos(2 pi m x)
+# Max sin, cos order m to fit - sin(2 pi m x), cos(2 pi m x) - note this relates to the maximum M in
+# the Residual Entropy paper as max(M) = mmax - 1
 mmax = 1 + nx//2
-# Number or random runs per order m
+# Number of random runs per order m
 Nruns = 1000
 
 # Script
