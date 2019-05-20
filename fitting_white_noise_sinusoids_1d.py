@@ -31,6 +31,10 @@ cosx = np.asarray([np.cos(2. * np.pi * float(j) * x) for j in range(0, mmax)]).T
 # Storage variables
 results = [] # Output coeffs
 
+# Residual correlation power spectrum
+m_rcps = [] # Mean
+s_rcps = [] # Sample standard deviation
+
 # Residual correlation function
 m_rcf = [] # Mean
 s_rcf = [] # Sample standard deviation
@@ -41,6 +45,7 @@ s_ncf = [] # Sample standard deviation
 
 # Handle bulk storage if requested
 if store_all:
+    rcpsd = []
     rcf = []
     ncf = []
     # Pre-calculate all the ys we are going to fit
@@ -74,29 +79,38 @@ for im in range(mmax):
     if store_all:
         yfit.append(yf)
 
-    # Get residuals and calculate semivariogram/correlation function using FFTs
+    # Get residuals and calculate (small p) correlation power spectral density, and
+    # semivariogram/correlation functions, using FFTs
     r = y - yf
-    rc = (
-        ((np.fft.ifft(np.abs(np.fft.fft(r, axis=-1))**2, axis=-1)).real).T/np.sum(r**2, axis=-1)).T
-    nc = (
-        ((np.fft.ifft(np.abs(np.fft.fft(y, axis=-1))**2, axis=-1)).real).T/np.sum(y**2, axis=-1)).T
+    rcps = ((np.abs(np.fft.fft(r, axis=-1))**2).T / np.sum(r**2, axis=-1)).T
+    ncps = ((np.abs(np.fft.fft(y, axis=-1))**2).T / np.sum(y**2, axis=-1)).T
+    rc = (np.fft.ifft(rcps, axis=-1)).real
+    nc = (np.fft.ifft(ncps, axis=-1)).real
 
-    # Store correlation function results
+    # Store averaged power spectrum, correlation function results
+    m_rcps.append(rcps.mean(axis=0))
+    s_rcps.append(rcps.std(axis=0))
     m_rcf.append(rc.mean(axis=0))
     s_rcf.append(rc.std(axis=0))
     m_ncf.append(nc.mean(axis=0))
     s_ncf.append(nc.std(axis=0))
     if store_all:
+        rcpsd.append(rcps)
         rcf.append(rc)
         ncf.append(nc)
 
 # Convert to arrays and store output
+m_rcps = np.asarray(m_rcps)
+s_rcps = np.asarray(s_rcps)
 m_rcf = np.asarray(m_rcf)
 s_rcf = np.asarray(s_rcf)
 m_ncf = np.asarray(m_ncf)
 s_ncf = np.asarray(s_ncf)
 
 output = {}
+output["m_rcps"] = m_rcps
+output["s_rcps"] = s_rcps
+
 output["m_rcf"] = m_rcf
 output["s_rcf"] = s_rcf
 
@@ -107,8 +121,10 @@ if store_all:
     yfit = np.asarray(yfit)
     output["yfit"] = yfit
     output["yall"] = yall
+    rcpsd = np.asarray(rcpsd)
     rcf = np.asarray(rcf)
     ncf = np.asarray(ncf)
+    output["rcpsd"] = rcpsd
     output["rcf"] = rcf
     output["ncf"] = ncf
 
