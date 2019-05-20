@@ -82,9 +82,9 @@ for im in range(mmax):
     # Get residuals and calculate (small p) correlation power spectral density, and
     # semivariogram/correlation functions, using FFTs
     r = y - yf
-    lrcps = ((np.abs(np.fft.fft(r, axis=-1))**2).T / np.sum(r**2, axis=-1)).T
+    rcps = ((np.abs(np.fft.fft(r, axis=-1))**2).T / np.sum(r**2, axis=-1)).T
     ncps = ((np.abs(np.fft.fft(y, axis=-1))**2).T / np.sum(y**2, axis=-1)).T
-    rc = (np.fft.ifft(lrcps, axis=-1)).real
+    rc = (np.fft.ifft(rcps, axis=-1)).real
     nc = (np.fft.ifft(ncps, axis=-1)).real
 
     # Store averaged power spectrum, correlation function results
