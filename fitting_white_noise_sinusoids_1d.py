@@ -9,8 +9,8 @@ import numpy as np
 
 # Setup parameters
 # ----------------
-output_filename = "wns1d.1e3.all.pickle"
-store_all = True  # Set True to store all y values, all best-fitting y model values, all correl fns
+output_filename = "wns1d.1e5.pickle"
+store_all = False  # Set True to store all y values, all best-fitting y model values, all correl fns
                   # ...don't set with Nruns = 100000 unless you have plenty of memory!
 # Number of data points
 nx = 100
@@ -18,7 +18,7 @@ nx = 100
 # the Residual Entropy paper as max(M) = mmax - 1
 mmax = 1 + nx//2
 # Number of random runs per order m
-Nruns = 1000
+Nruns = 100000
 
 # Script
 # ------
