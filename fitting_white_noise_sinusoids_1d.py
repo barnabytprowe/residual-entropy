@@ -31,9 +31,9 @@ cosx = np.asarray([np.cos(2. * np.pi * float(j) * x) for j in range(0, mmax)]).T
 # Storage variables
 results = [] # Output coeffs
 
-# Residual correlation power spectrum
-m_rcps = [] # Mean
-s_rcps = [] # Sample standard deviation
+# Log residual correlation power spectrum
+m_lrcps = [] # Mean
+s_lrcps = [] # Sample standard deviation
 
 # Residual correlation function
 m_rcf = [] # Mean
@@ -88,8 +88,8 @@ for im in range(mmax):
     nc = (np.fft.ifft(ncps, axis=-1)).real
 
     # Store averaged power spectrum, correlation function results
-    m_rcps.append(rcps.mean(axis=0))
-    s_rcps.append(rcps.std(axis=0))
+    m_lrcps.append((-np.log(rcps)).mean(axis=0))
+    s_lrcps.append((-np.log(rcps)).std(axis=0))
     m_rcf.append(rc.mean(axis=0))
     s_rcf.append(rc.std(axis=0))
     m_ncf.append(nc.mean(axis=0))
@@ -100,16 +100,16 @@ for im in range(mmax):
         ncf.append(nc)
 
 # Convert to arrays and store output
-m_rcps = np.asarray(m_rcps)
-s_rcps = np.asarray(s_rcps)
+m_lrcps = np.asarray(m_lrcps)
+s_lrcps = np.asarray(s_lrcps)
 m_rcf = np.asarray(m_rcf)
 s_rcf = np.asarray(s_rcf)
 m_ncf = np.asarray(m_ncf)
 s_ncf = np.asarray(s_ncf)
 
 output = {}
-output["m_rcps"] = m_rcps
-output["s_rcps"] = s_rcps
+output["m_lrcps"] = m_lrcps
+output["s_lrcps"] = s_lrcps
 
 output["m_rcf"] = m_rcf
 output["s_rcf"] = s_rcf
