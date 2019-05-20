@@ -39,7 +39,7 @@ for m, fig_str in zip((1, 21, 41), ("fig1", "fig2", "fig3")):
     print("m = "+str(m))
     fig = plt.figure(figsize=(6, 4))
     plt.grid()
-    plt.plot(x, yall[m, 0, :], label=r"White noise $\sim N(0, 1)$")
+    plt.plot(x, yall[m, 0, :], label=r"$Y \sim N(0, 1)$")
     plt.plot(x, yfit[m, 0, :], label=r"Best-fitting curve for $M="+str(m)+"$")
     plt.ylim(-3, 3)
     plt.xlabel(r"$x$")
@@ -89,7 +89,7 @@ for i, m in enumerate((1, 21, 41)):
     axes[i].legend(loc=1)
 
 # Add x label to final subplot
-axes[-1].set_xlabel(r"$|\Delta i|$")
+axes[-1].set_xlabel(r"Lag $l$")
 # Remove horizontal space between axes
 plt.tight_layout()
 fig.subplots_adjust(hspace=0)
@@ -117,7 +117,7 @@ fig.colorbar(im)
 ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
-ax.set_xlabel(r"$|\Delta i|$", size="large")
+ax.set_xlabel(r"Lag $l$", size="large")
 ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual autocorrelation")
 fig.savefig(os.path.join(".", "plots", "fig5.pdf"))
@@ -137,7 +137,7 @@ fig.colorbar(im)
 ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
-ax.set_xlabel(r"$|\Delta i|$", size="large")
+ax.set_xlabel(r"$k$", size="large")
 ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig6.pdf"))
@@ -152,7 +152,7 @@ with open("wnc1d.1e5.all.pickle", "r") as fin:
     rce5 = pickle.load(fin)
 
 # Build the plot output
-fig, ax = plt.subplots(figsize=(8, 9))
+fig, ax = plt.subplots(figsize=(6, 8))
 rcf_plt = rce5["m_rcf"][:, :mmax]
 
 # Seismic has good contrast
@@ -164,7 +164,7 @@ ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, rcf_plt.shape[0], 10)),
     ticklabels=list(np.arange(0, rcf_plt.shape[0], 10)))
-ax.set_xlabel(r"$|\Delta i|$", size="large")
+ax.set_xlabel(r"Lag $l$", size="large")
 ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual autocorrelation")
 fig.savefig(os.path.join(".", "plots", "fig7.pdf"))
@@ -176,7 +176,7 @@ plt.close(fig)
 ps_plt = np.abs(np.fft.fft(rce5["m_rcf"]))[:, :mmax]
 pss_plt = (ps_plt.T / ps_plt.max(axis=1)).T
 # Build the plot output
-fig, ax = plt.subplots(figsize=(8, 9))
+fig, ax = plt.subplots(figsize=(6, 8))
 # Seismic has good contrast
 im = ax.pcolor(pss_plt, vmin=-1, vmax=+1, cmap="seismic")
 fig.colorbar(im)
@@ -185,7 +185,7 @@ ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, pss_plt.shape[0], 10)),
     ticklabels=list(np.arange(0, pss_plt.shape[0], 10)))
-ax.set_xlabel(r"$|\Delta i|$", size="large")
+ax.set_xlabel(r"$k$", size="large")
 ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig8.pdf"))
