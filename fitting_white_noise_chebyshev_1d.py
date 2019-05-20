@@ -35,6 +35,10 @@ results = [] # Output coeffs
 m_lrcps = [] # Mean
 s_lrcps = [] # Sample standard deviation
 
+# Pure noise (i.e. just y) correlation power spectrum
+m_lncps = [] # Mean
+s_lncps = [] # Sample standard deviation
+
 # Residual correlation function
 m_rcf = [] # Mean
 s_rcf = [] # Sample standard deviation
@@ -46,6 +50,7 @@ s_ncf = [] # Sample standard deviation
 # Handle bulk storage if requested
 if store_all:
     rcpsd = []
+    ncpsd = []
     rcf = []
     ncf = []
     # Pre-calculate all the ys we are going to fit
@@ -90,18 +95,23 @@ for im in range(mmax):
     # Store averaged power spectrum, correlation function results
     m_lrcps.append((-np.log(rcps)).mean(axis=0))
     s_lrcps.append((-np.log(rcps)).std(axis=0))
+    m_lncps.append((-np.log(ncps)).mean(axis=0))
+    s_lncps.append((-np.log(ncps)).std(axis=0))
     m_rcf.append(rc.mean(axis=0))
     s_rcf.append(rc.std(axis=0))
     m_ncf.append(nc.mean(axis=0))
     s_ncf.append(nc.std(axis=0))
     if store_all:
         rcpsd.append(rcps)
+        ncpsd.append(ncps)
         rcf.append(rc)
         ncf.append(nc)
 
 # Convert to arrays and store output
 m_lrcps = np.asarray(m_lrcps)
 s_lrcps = np.asarray(s_lrcps)
+m_lncps = np.asarray(m_lncps)
+s_lncps = np.asarray(s_lncps)
 m_rcf = np.asarray(m_rcf)
 s_rcf = np.asarray(s_rcf)
 m_ncf = np.asarray(m_ncf)
@@ -110,6 +120,9 @@ s_ncf = np.asarray(s_ncf)
 output = {}
 output["m_lrcps"] = m_lrcps
 output["s_lrcps"] = s_lrcps
+
+output["m_lncps"] = m_lncps
+output["s_lncps"] = s_lncps
 
 output["m_rcf"] = m_rcf
 output["s_rcf"] = s_rcf
@@ -125,6 +138,7 @@ if store_all:
     rcf = np.asarray(rcf)
     ncf = np.asarray(ncf)
     output["rcpsd"] = rcpsd
+    output["ncpsd"] = ncpsd
     output["rcf"] = rcf
     output["ncf"] = ncf
 
