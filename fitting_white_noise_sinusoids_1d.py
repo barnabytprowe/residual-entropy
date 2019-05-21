@@ -110,8 +110,8 @@ for im in range(mmax):
 # Convert to arrays and store output
 m_lrcps = np.asarray(m_lrcps)
 s_lrcps = np.asarray(s_lrcps)
-m_lrcps = np.asarray(m_lncps)
-s_lrcps = np.asarray(s_lncps)
+m_lncps = np.asarray(m_lncps)
+s_lncps = np.asarray(s_lncps)
 m_rcf = np.asarray(m_rcf)
 s_rcf = np.asarray(s_rcf)
 m_ncf = np.asarray(m_ncf)
