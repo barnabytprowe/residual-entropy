@@ -92,6 +92,13 @@ for im in range(mmax):
     rc = (np.fft.ifft(rcps, axis=-1)).real
     nc = (np.fft.ifft(ncps, axis=-1)).real
 
+    # It's entirely possible that some of the values in rcps are = 0 in numpy floating point,
+    # so we will floor the array with the smallest possible value that can be input to np.log()
+    # without it returning an -Inf
+    min_log_arg = np.sys.float_info.epsilon * np.sys.float_info.min # < makes sense if you think!
+    rcps[rcps < min_log_arg] = min_log_arg
+    ncps[ncps < min_log_arg] = min_log_arg
+
     # Store averaged power spectrum, correlation function results
     m_lrcps.append((-np.log(rcps)).mean(axis=0))
     s_lrcps.append((-np.log(rcps)).std(axis=0))
