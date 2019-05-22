@@ -190,3 +190,18 @@ ax.set_ylabel(r"$M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig8.pdf"))
 plt.close(fig)
+
+
+# Plots of -\sum \ln(pk)
+# ======================
+#
+# Build the plot output
+fig = plt.figure(figsize=(6, 4))
+plt.grid()
+plt.plot(rse5["m_lrcps"][:-1, :mmax].mean(axis=-1), "b-")
+plt.plot(
+    rse5["m_lrcps"][:-1, :mmax].mean(axis=-1) + rse5["s_lrcps"][:-1, :mmax].mean(axis=-1), "b--")
+plt.plot(
+    rse5["m_lrcps"][:-1, :mmax].mean(axis=-1) - rse5["s_lrcps"][:-1, :mmax].mean(axis=-1), "b--")
+plt.axhline(rse5["m_lncps"][:-1, :mmax].mean(), ls="--", color="k")
+plt.show()
