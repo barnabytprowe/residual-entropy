@@ -10,8 +10,8 @@ from numpy.polynomial.chebyshev import chebval
 
 # Setup parameters
 # ----------------
-output_filename = "wnc1d.1e3.all.pickle"
-store_all = True # Set True to store all y values, all best-fitting y model values, all correl fns
+output_filename = "wnc1d.1e3.pickle"
+store_all = False # Set True to store all y values, all best-fitting y model values, all correl fns
                   # ...don't set with Nruns = 100000 unless you have plenty of memory!
 # Number of data points
 nx = 100
@@ -126,6 +126,10 @@ for im in range(mmax):
     med_lncps.append(np.median(mean_lncps_over_k))
     lqt_lncps.append(np.quantile(mean_lncps_over_k, 0.05))
     uqt_lncps.append(np.quantile(mean_lncps_over_k, 0.95))
+
+    #if im > 59:
+    #    import matplotlib.pyplot as plt
+    #    import ipdb; ipdb.set_trace()
 
     if store_all:
         rcpsd.append(rcps)
