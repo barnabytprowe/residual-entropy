@@ -152,7 +152,7 @@ with open("wnc1d.1e5.pickle", "r") as fin:
     rce5 = pickle.load(fin)
 
 # Build the plot output
-fig, ax = plt.subplots(figsize=(6, 8))
+fig, ax = plt.subplots(figsize=(6, 6))
 rcf_plt = rce5["m_rcf"][:, :mmax]
 
 # Seismic has good contrast
@@ -176,7 +176,7 @@ plt.close(fig)
 ps_plt = np.abs(np.fft.fft(rce5["m_rcf"]))[:, :mmax]
 pss_plt = (ps_plt.T / ps_plt.max(axis=1)).T
 # Build the plot output
-fig, ax = plt.subplots(figsize=(6, 8))
+fig, ax = plt.subplots(figsize=(6, 6))
 # Seismic has good contrast
 im = ax.pcolor(pss_plt, vmin=-1, vmax=+1, cmap="seismic")
 fig.colorbar(im)
@@ -202,26 +202,32 @@ with open("wnc1d.1e4.pickle", "r") as fin:
 # Build the plot output
 fig = plt.figure(figsize=(5, 5))
 plt.grid()
-plt.plot(1 + np.asarray(rall["med_lrcps"][:-1]), "b-")
+plt.plot(1 + np.asarray(rall["med_lrcps"][:-1]), "b-", label="Fourier Series Model")
 plt.plot(1 + np.asarray(rall["lqt_lrcps"][:-1]), "b--")
 plt.plot(1 + np.asarray(rall["uqt_lrcps"][:-1]), "b--")
 plt.axhline(1 + np.mean(rall["med_lncps"]), ls="-", color="k")
 plt.axhline(1 + np.mean(rall["lqt_lncps"]), ls="--", color="k")
 plt.axhline(1 + np.mean(rall["uqt_lncps"]), ls="--", color="k")
+plt.ylim((0, 37.5))
 plt.xlabel(r"Order $M$")
-plt.ylabel(r"$1 - \sum_{k=0}^{N-1} \ln{\left[ \tilde{\rho}^* \right]}$")
-fig.savefig("fig9.pdf")
+plt.ylabel(r"$1 - \frac{1}{N} \sum_{k=0}^{N-1} \ln{\left[ \tilde{\rho}^*_k \right]}$")
+plt.legend()
+plt.tight_layout()
+fig.savefig(os.path.join(".", "plots", "fig9.pdf"))
 plt.close(fig)
 
 fig = plt.figure(figsize=(5, 5))
 plt.grid()
-plt.plot(1 + np.asarray(rce4["med_lrcps"]), "r-")
+plt.plot(1 + np.asarray(rce4["med_lrcps"]), "r-", label="Chebyshev Series Model")
 plt.plot(1 + np.asarray(rce4["lqt_lrcps"]), "r--")
 plt.plot(1 + np.asarray(rce4["uqt_lrcps"]), "r--")
 plt.axhline(1 + np.mean(rce4["med_lncps"]), ls="-", color="k")
 plt.axhline(1 + np.mean(rce4["lqt_lncps"]), ls="--", color="k")
 plt.axhline(1 + np.mean(rce4["uqt_lncps"]), ls="--", color="k")
+plt.ylim((0, 37.5))
 plt.xlabel(r"Order $M$")
-plt.ylabel(r"$1 - \sum_{k=0}^{N-1} \ln{\left[ \tilde{\rho}^* \right]}$")
-fig.savefig("fig10.pdf")
+plt.ylabel(r"$1 - \frac{1}{N} \sum_{k=0}^{N-1} \ln{\left[ \tilde{\rho}^*_k \right]}$")
+plt.legend()
+plt.tight_layout()
+fig.savefig(os.path.join(".", "plots", "fig10.pdf"))
 plt.close(fig)
