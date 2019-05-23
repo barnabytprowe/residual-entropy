@@ -34,10 +34,16 @@ results = [] # Output coeffs
 # Log residual correlation power spectrum
 m_lrcps = [] # Mean
 s_lrcps = [] # Sample standard deviation
+med_lrcps = [] # Median
+lqt_lrcps = [] # Lower quartile
+uqt_lrcps = [] # Upper quartile
 
 # Pure noise (i.e. just y) correlation power spectrum
 m_lncps = [] # Mean
 s_lncps = [] # Sample standard deviation
+med_lncps = [] # Median
+lqt_lncps = [] # Lower quartile
+uqt_lncps = [] # Upper quartile
 
 # Residual correlation function
 m_rcf = [] # Mean
@@ -136,9 +142,15 @@ s_ncf = np.asarray(s_ncf)
 output = {}
 output["m_lrcps"] = m_lrcps
 output["s_lrcps"] = s_lrcps
+output["med_lrcps"] = med_lrcps
+output["lqt_lrcps"] = lqt_lrcps
+output["uqt_lrcps"] = uqt_lrcps
 
 output["m_lncps"] = m_lncps
 output["s_lncps"] = s_lncps
+output["med_lncps"] = med_lncps
+output["lqt_lncps"] = lqt_lncps
+output["uqt_lncps"] = uqt_lncps
 
 output["m_rcf"] = m_rcf
 output["s_rcf"] = s_rcf
