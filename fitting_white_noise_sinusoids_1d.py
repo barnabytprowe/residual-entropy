@@ -108,15 +108,6 @@ for im in range(mmax):
     s_rcf.append(rc.std(axis=0))
     m_ncf.append(nc.mean(axis=0))
     s_ncf.append(nc.std(axis=0))
-
-    # Store median, lower + upper quartiles of the log ps stuff (skewed distribution)
-    med_lrcps.append(np.median(-np.log(rcps), axis=0))
-    lqt_lrcps.append(np.quantile(-np.log(rcps), 0.25, axis=0, interpolation="midpoint"))
-    uqt_lrcps.append(np.quantile(-np.log(rcps), 0.75, axis=0, interpolation="midpoint"))
-    med_lncps.append(np.median(-np.log(ncps), axis=0))
-    lqt_lncps.append(np.quantile(-np.log(ncps), 0.25, axis=0, interpolation="midpoint"))
-    uqt_lncps.append(np.quantile(-np.log(ncps), 0.75, axis=0, interpolation="midpoint"))
-
     if store_all:
         rcpsd.append(rcps)
         ncpsd.append(ncps)
