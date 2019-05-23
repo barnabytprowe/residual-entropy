@@ -192,16 +192,36 @@ fig.savefig(os.path.join(".", "plots", "fig8.pdf"))
 plt.close(fig)
 
 
-# Plots of -\sum \ln(pk)
-# ======================
+# Plots of 1 - \sum \ln(pk)
+# =========================
 #
+# Load pickled file object for chebyshev fits (1e4 version for testing)
+with open("wnc1d.1e4.pickle", "r") as fin:
+    rce4 = pickle.load(fin)
+
 # Build the plot output
-fig = plt.figure(figsize=(6, 4))
+fig = plt.figure(figsize=(5, 5))
 plt.grid()
-plt.plot(rse5["m_lrcps"][:-1, :mmax].mean(axis=-1), "b-")
-plt.plot(
-    rse5["m_lrcps"][:-1, :mmax].mean(axis=-1) + rse5["s_lrcps"][:-1, :mmax].mean(axis=-1), "b--")
-plt.plot(
-    rse5["m_lrcps"][:-1, :mmax].mean(axis=-1) - rse5["s_lrcps"][:-1, :mmax].mean(axis=-1), "b--")
-plt.axhline(rse5["m_lncps"][:-1, :mmax].mean(), ls="--", color="k")
-plt.show()
+plt.plot(1 + np.asarray(rall["med_lrcps"][:-1]), "b-")
+plt.plot(1 + np.asarray(rall["lqt_lrcps"][:-1]), "b--")
+plt.plot(1 + np.asarray(rall["uqt_lrcps"][:-1]), "b--")
+plt.axhline(1 + np.mean(rall["med_lncps"]), ls="-", color="k")
+plt.axhline(1 + np.mean(rall["lqt_lncps"]), ls="--", color="k")
+plt.axhline(1 + np.mean(rall["uqt_lncps"]), ls="--", color="k")
+plt.xlabel(r"Order $M$")
+plt.ylabel(r"$1 - \sum_{k=0}^{N-1} \ln{\left[ \tilde{\rho}^* \right]}$")
+fig.savefig("fig9.pdf")
+plt.close(fig)
+
+fig = plt.figure(figsize=(5, 5))
+plt.grid()
+plt.plot(1 + np.asarray(rce4["med_lrcps"]), "r-")
+plt.plot(1 + np.asarray(rce4["lqt_lrcps"]), "r--")
+plt.plot(1 + np.asarray(rce4["uqt_lrcps"]), "r--")
+plt.axhline(1 + np.mean(rce4["med_lncps"]), ls="-", color="k")
+plt.axhline(1 + np.mean(rce4["lqt_lncps"]), ls="--", color="k")
+plt.axhline(1 + np.mean(rce4["uqt_lncps"]), ls="--", color="k")
+plt.xlabel(r"Order $M$")
+plt.ylabel(r"$1 - \sum_{k=0}^{N-1} \ln{\left[ \tilde{\rho}^* \right]}$")
+fig.savefig("fig10.pdf")
+plt.close(fig)
