@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 if not os.path.isdir(os.path.join(".", "plots")):
     os.mkdir(os.path.join(".", "plots"))
 
-# Load detailed ("all") results from pickled file object
+# Load detailed ("all") results from pickled file object for sinusoid fits
 with open("wns1d.1e3.all.pickle", "r") as fin:
     rall = pickle.load(fin)
 # Pull out results
@@ -89,7 +89,7 @@ for i, m in enumerate((1, 21, 41)):
     axes[i].legend(loc=1)
 
 # Add x label to final subplot
-axes[-1].set_xlabel(r"Lag $l$")
+axes[-1].set_xlabel(r"Lag $|l|$")
 # Remove horizontal space between axes
 plt.tight_layout()
 fig.subplots_adjust(hspace=0)
@@ -117,8 +117,8 @@ fig.colorbar(im)
 ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
-ax.set_xlabel(r"Lag $l$", size="large")
-ax.set_ylabel(r"$M$", size="large")
+ax.set_xlabel(r"Lag $|l|$", size="large")
+ax.set_ylabel(r"Order $M$", size="large")
 ax.set_title("Averaged residual autocorrelation")
 fig.savefig(os.path.join(".", "plots", "fig5.pdf"))
 plt.close(fig)
@@ -137,8 +137,8 @@ fig.colorbar(im)
 ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, mmax-1, 10))+[49.5], ticklabels=list(np.arange(0, mmax-1, 10))+[49])
-ax.set_xlabel(r"$k$", size="large")
-ax.set_ylabel(r"$M$", size="large")
+ax.set_xlabel(r"$|k|$", size="large")
+ax.set_ylabel(r"Order $M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig6.pdf"))
 plt.close(fig)
@@ -164,8 +164,8 @@ ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, rcf_plt.shape[0], 10)),
     ticklabels=list(np.arange(0, rcf_plt.shape[0], 10)))
-ax.set_xlabel(r"Lag $l$", size="large")
-ax.set_ylabel(r"$M$", size="large")
+ax.set_xlabel(r"Lag $|l|$", size="large")
+ax.set_ylabel(r"Order $M$", size="large")
 ax.set_title("Averaged residual autocorrelation")
 fig.savefig(os.path.join(".", "plots", "fig7.pdf"))
 plt.close(fig)
@@ -185,8 +185,8 @@ ax.xaxis.set(ticks=np.arange(0.5, mmax, 10), ticklabels=np.arange(0, mmax, 10))
 ax.yaxis.set(
     ticks=list(np.arange(0.5, pss_plt.shape[0], 10)),
     ticklabels=list(np.arange(0, pss_plt.shape[0], 10)))
-ax.set_xlabel(r"$k$", size="large")
-ax.set_ylabel(r"$M$", size="large")
+ax.set_xlabel(r"$|k|$", size="large")
+ax.set_ylabel(r"Order $M$", size="large")
 ax.set_title("Averaged residual power spectral signature")
 fig.savefig(os.path.join(".", "plots", "fig8.pdf"))
 plt.close(fig)
