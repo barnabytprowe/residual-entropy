@@ -61,7 +61,7 @@ if store_all:
 for im in range(mmax):
 
     m = 1 + im # m = order of max frequency sinusoid in the truncated Fourier series fit to the data
-    print("Run for m = "+str(m)+"/"+str(mmax))
+    print("Run for m = "+str(im)+"/"+str(mmax - 1))
 
     # Following numpy SVD least-squares implementation linalg.lstsq as nicely described here:
     # https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/
