@@ -200,7 +200,7 @@ with open("wnc1d.1e4.pickle", "r") as fin:
     rce4 = pickle.load(fin)
 
 # Build the plot output
-fig = plt.figure(figsize=(5, 5))
+fig = plt.figure(figsize=(5, 4))
 plt.grid()
 plt.plot(1 + np.asarray(rall["med_lrcps"][:-1]), "b-", label="Fourier Series Model")
 plt.plot(1 + np.asarray(rall["lqt_lrcps"][:-1]), "b--")
@@ -216,7 +216,7 @@ plt.tight_layout()
 fig.savefig(os.path.join(".", "plots", "fig9.pdf"))
 plt.close(fig)
 
-fig = plt.figure(figsize=(5, 5))
+fig = plt.figure(figsize=(5, 4))
 plt.grid()
 plt.plot(1 + np.asarray(rce4["med_lrcps"]), "r-", label="Chebyshev Series Model")
 plt.plot(1 + np.asarray(rce4["lqt_lrcps"]), "r--")
