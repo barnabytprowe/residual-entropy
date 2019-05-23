@@ -92,10 +92,10 @@ for im in range(mmax):
     rc = (np.fft.ifft(rcps, axis=-1)).real
     nc = (np.fft.ifft(ncps, axis=-1)).real
 
-    # It's entirely possible that some of the values in rcps are = 0 in numpy floating point,
-    # so we will floor the array with the smallest possible value that can be input to np.log()
-    # without it returning an -Inf
-    min_log_arg = np.sys.float_info.epsilon * np.sys.float_info.min # < makes sense if you think!
+    # By construction in this experiment, typical values of rcps / ncps should be ~1 for modes that
+    # are not being suppressed by overfitting, thus values smaller than the machine espilon are
+    # possibly suspect... So let's put in a floor of the machine epsilon
+    min_log_arg = np.sys.float_info.espilon
     rcps[rcps < min_log_arg] = min_log_arg
     ncps[ncps < min_log_arg] = min_log_arg
 
