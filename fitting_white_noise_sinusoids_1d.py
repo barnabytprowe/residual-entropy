@@ -9,8 +9,8 @@ import numpy as np
 
 # Setup parameters
 # ----------------
-output_filename = "wns1d.1e5.pickle"
-store_all = False  # Set True to store all y values, all best-fitting y model values, all correl fns
+output_filename = "wns1d.1e3.all.pickle"
+store_all = True  # Set True to store all y values, all best-fitting y model values, all correl fns
                   # ...don't set with Nruns = 100000 unless you have plenty of memory!
 # Number of data points
 nx = 100
@@ -18,7 +18,7 @@ nx = 100
 # the Residual Entropy paper as max(M) = mmax - 1
 mmax = 1 + nx//2
 # Number of random runs per order m
-Nruns = 100000
+Nruns = 1000
 
 # Script
 # ------
@@ -34,13 +34,15 @@ results = [] # Output coeffs
 # Log residual correlation power spectrum
 m_lrcps = [] # Mean
 s_lrcps = [] # Sample standard deviation
-med_lrcps = [] # Median
-lqt_lrcps = [] # Lower quartile
-uqt_lrcps = [] # Upper quartile
 
 # Pure noise (i.e. just y) correlation power spectrum
 m_lncps = [] # Mean
 s_lncps = [] # Sample standard deviation
+
+# Quantile statistics - note these will be averaged over k prior to taking the median / quantile
+med_lrcps = [] # Median
+lqt_lrcps = [] # Lower quartile
+uqt_lrcps = [] # Upper quartile
 med_lncps = [] # Median
 lqt_lncps = [] # Lower quartile
 uqt_lncps = [] # Upper quartile
@@ -115,13 +117,15 @@ for im in range(mmax):
     m_ncf.append(nc.mean(axis=0))
     s_ncf.append(nc.std(axis=0))
 
-    # Store median, lower + upper quartiles of the log ps stuff (skewed distribution)
-    med_lrcps.append(np.median(-np.log(rcps), axis=0))
-    lqt_lrcps.append(np.quantile(-np.log(rcps), 0.25, axis=0, interpolation="midpoint"))
-    uqt_lrcps.append(np.quantile(-np.log(rcps), 0.75, axis=0, interpolation="midpoint"))
-    med_lncps.append(np.median(-np.log(ncps), axis=0))
-    lqt_lncps.append(np.quantile(-np.log(ncps), 0.25, axis=0, interpolation="midpoint"))
-    uqt_lncps.append(np.quantile(-np.log(ncps), 0.75, axis=0, interpolation="midpoint"))
+    # Store median, 5th and 95th percentiles of the log ps stuff (skewed distributions)
+    mean_lrcps_over_k = np.mean(-np.log(rcps), axis=-1) # k is trailing dim
+    mean_lncps_over_k = np.mean(-np.log(ncps), axis=-1)
+    med_lrcps.append(np.median(mean_lrcps_over_k))
+    lqt_lrcps.append(np.quantile(mean_lrcps_over_k, 0.05))
+    uqt_lrcps.append(np.quantile(mean_lrcps_over_k, 0.95))
+    med_lncps.append(np.median(mean_lncps_over_k))
+    lqt_lncps.append(np.quantile(mean_lncps_over_k, 0.05))
+    uqt_lncps.append(np.quantile(mean_lncps_over_k, 0.95))
 
     if store_all:
         rcpsd.append(rcps)
@@ -142,12 +146,14 @@ s_ncf = np.asarray(s_ncf)
 output = {}
 output["m_lrcps"] = m_lrcps
 output["s_lrcps"] = s_lrcps
+
+output["m_lncps"] = m_lncps
+output["s_lncps"] = s_lncps
+
 output["med_lrcps"] = med_lrcps
 output["lqt_lrcps"] = lqt_lrcps
 output["uqt_lrcps"] = uqt_lrcps
 
-output["m_lncps"] = m_lncps
-output["s_lncps"] = s_lncps
 output["med_lncps"] = med_lncps
 output["lqt_lncps"] = lqt_lncps
 output["uqt_lncps"] = uqt_lncps
