@@ -101,7 +101,7 @@ for im in range(mmax):
     # By construction in this experiment, typical values of rcps / ncps should be ~1 for modes that
     # are not being suppressed by overfitting, thus values smaller than the machine espilon are
     # possibly suspect... So let's put in a floor of the machine epsilon
-    min_log_arg = np.sys.float_info.espilon
+    min_log_arg = np.sys.float_info.epsilon
     rcps[rcps < min_log_arg] = min_log_arg
     ncps[ncps < min_log_arg] = min_log_arg
 
