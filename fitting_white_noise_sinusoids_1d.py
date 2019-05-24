@@ -2,7 +2,7 @@
 """
 fitting_white_noise_sinusoids_1d.py
 ===================================
-Fitting white noise with sinusoids in 1D
+Fitting white noise with sinusoids in 1D for the paper Residual Entropy
 """
 import pickle
 import numpy as np

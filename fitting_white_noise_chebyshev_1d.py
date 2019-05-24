@@ -2,7 +2,7 @@
 """
 fitting_white_noise_chebyshev_1d.py
 ===================================
-Fitting white noise with Chebyshev polynomials in 1D
+Fitting white noise with Chebyshev polynomials in 1D for the paper Residual Entropy
 """
 import pickle
 import numpy as np
@@ -10,15 +10,15 @@ from numpy.polynomial.chebyshev import chebval
 
 # Setup parameters
 # ----------------
-output_filename = "wnc1d.1e4.pickle"
-store_all = False # Set True to store all y values, all best-fitting y model values, all correl fns
+output_filename = "wnc1d.1e3.all.pickle"
+store_all = True # Set True to store all y values, all best-fitting y model values, all correl fns
                   # ...don't set with Nruns = 100000 unless you have plenty of memory!
 # Number of data points
 nx = 100
 # Max sin, cos order m to fit - sin(2 pi m x), cos(2 pi m x)
 mmax = 101 #1 + nx//2
 # Number of random runs per order m
-Nruns = 10000
+Nruns = 1000
 
 # Script
 # ------
