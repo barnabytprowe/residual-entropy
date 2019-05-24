@@ -16,7 +16,7 @@ The scripts are simple, and duplicate each other heavily but this was an
 active choice to make them each as clear to follow as possible in a standalone
 manner.  The required libraries are numpy and matplotlib.
 
-## To reproduce results in the paper:
+To reproduce results in the paper:
 
 i.   Run `$ python fitting_white_noise_sinusoids_1d.py`
 
@@ -24,6 +24,26 @@ i.   Run `$ python fitting_white_noise_sinusoids_1d.py`
      the plotting script will use to make some of the early charts in the
      paper.
 
-ii.  
+ii.  Open a text editor and make the following edits to the Setup parameters
+     in `fitting_white_noise_sinusoids_1d.py`:
 
+     * Set `output_filename = wns1d.1e5.pickle`
+     * Set `store_all = False`
+     * Set `Nruns = 100000`
+
+     This script is then ready to run all 10^5 simulations, for which it needs
+     to not retain and store all Y samples and corresponding R residuals in
+     order to prevent running out of memory. 
+
+iii. Run `$ python fitting_white_noise_sinusoids_1d.py` again
+
+     This now runs the suite of 10^5 simulations used later in the paper, and
+     may take significantly over an hour.
+
+iv.  Run `$ python fitting_white_noise_chebyshev_1d.py`
+
+     This will take multiple hours, so be patient.
+
+v.   Finally run `$ python plot_white_noise_1d.py` to make the figures used in
+     the paper.
 
