@@ -1,3 +1,4 @@
 *.pickle
 plots/
 ./plots/*
+zip/
