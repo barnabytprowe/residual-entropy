@@ -1,20 +1,22 @@
-ResEnt
-======
+Residual-Entropy
+================
 
-This repository contains code used to generate plots and results discussed
-in the paper "Residual Entropy".  The code is well-tested in a Python 2.7+
-environment.
+This repository contains code used to generate plots and results discussed in
+the paper "Residual Entropy".  The code is well-tested in a Python 2.7+
+environment, but should work fine in Python 3.  Let me know by opening an Issue
+if I need to make tweaks to ensure this.
 
 The two main scripts are:
 
 * `fitting_white_noise_sinusoids_1d.py`
 * `fitting_white_noise_chebyshev_1d.py`
 
-...and the `plot_white_noise_1d.py` script creates the plots.
+...and the `plot_white_noise_1d.py` script creates the plots using outputs from
+these two.
 
-The scripts are simple, and duplicate each other heavily but this was an
-active choice to make them each as clear to follow as possible in a standalone
-manner.  The required libraries are numpy and matplotlib.
+The scripts are simple, and duplicate each other heavily: this was a deliberate
+choice to make them each as clear to follow as possible.  The required libraries
+are recent versions of numpy and matplotlib.
 
 To reproduce results in the paper:
 
