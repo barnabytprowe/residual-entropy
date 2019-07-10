@@ -2,9 +2,10 @@ Residual-Entropy
 ================
 
 This repository contains code used to generate plots and results discussed in
-the paper "Residual Entropy".  The code is well-tested in a Python 2.7+
-environment, but should work fine in Python 3.  Let me know by opening an Issue
-if I need to make tweaks to ensure this.
+the paper "Residual Entropy" (see https://arxiv.org/abs/1907.03888)
+
+The code is well-tested in a Python 2.7+ environment, but should work fine in Python 3.
+Let me know by opening an Issue if I need to make tweaks to ensure this.
 
 The two main scripts are:
 
