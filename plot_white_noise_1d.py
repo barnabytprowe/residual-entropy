@@ -16,7 +16,7 @@ if not os.path.isdir(os.path.join(".", "plots")):
     os.mkdir(os.path.join(".", "plots"))
 
 # Load detailed ("all") results from pickled file object for sinusoid fits
-with open("wns1d.1e3.all.pickle", "r") as fin:
+with open("wns1d.1e3.all.pickle", "rb") as fin:
     rall = pickle.load(fin)
 # Pull out results
 yall = rall["yall"]
@@ -102,7 +102,7 @@ plt.close(fig)
 # =======================================================================
 #
 # Load results from pickled file object
-with open("wns1d.1e5.pickle", "r") as fin:
+with open("wns1d.1e5.pickle", "rb") as fin:
     rse5 = pickle.load(fin)
 
 # Build the plot output
@@ -148,7 +148,7 @@ plt.close(fig)
 # ======================================================================
 #
 # Load results from pickled file object
-with open("wnc1d.1e5.pickle", "r") as fin:
+with open("wnc1d.1e5.pickle", "rb") as fin:
     rce5 = pickle.load(fin)
 
 # Build the plot output
