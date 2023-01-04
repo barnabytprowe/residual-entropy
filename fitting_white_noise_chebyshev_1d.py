@@ -101,11 +101,13 @@ for im in range(mmax):
     nc = (np.fft.ifft(ncps, axis=-1)).real
 
     # By construction in this experiment, typical values of rcps / ncps should be ~1 for modes that
-    # are not being suppressed by overfitting, thus values smaller than the machine espilon are
-    # possibly suspect... So let's put in a floor of the machine epsilon
+    # are not being suppressed by overfitting, thus values smaller than the machine espilon, i.e.
+    # *zero*, cannot in fact be distinguished from it in reality... So, for convenience, we put in a
+    # floor of the machine epsilon in all power spectrum values prior to taking the statistics of
+    # the log values across runs, to avoid negative infinities
     min_log_arg = np.sys.float_info.epsilon
-    rcps[rcps < min_log_arg] = min_log_arg
-    ncps[ncps < min_log_arg] = min_log_arg
+    rcps[np.abs(rcps) < min_log_arg] = min_log_arg
+    ncps[np.abs(ncps) < min_log_arg] = min_log_arg
 
     # Store averaged power spectrum, correlation function results
     m_lrcps.append((-np.log(rcps)).mean(axis=0))
